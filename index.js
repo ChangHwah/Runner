@@ -43,8 +43,7 @@ client.on('message', async message => {
     //If there is a command under the correct name
     //use the .get() command or find an alias that can also be used for
     //the command and the alias listed as such under the command
-    const command = client.commands.get(commandName)
-    || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName))
+    const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName))
     
     //If there isn't a correct command name, exit early
     if (!command) return;
