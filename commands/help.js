@@ -20,8 +20,8 @@ module.exports = {
                 .setTitle( 'Commands' )
                 .setAuthor( 'Runner', runnerPicture )
                 .setDescription(`
-                    \`${prefix}ping\` - Displays your ping.
                     \`${prefix}help\` - Displays all commands.
+                    \`${prefix}ping\` - Displays your ping.
                     \`${prefix}ub\` - Search something in Urban Dictionary. 
                 
                 `) 

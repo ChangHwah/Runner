@@ -1,5 +1,6 @@
 const Discord = require ("discord.js");
 const { version, runnerPicture } = require('../config.json');
+const querystring = require('querystring');
 
 //exports whatever is below to the index.js file
 module.exports = {
@@ -11,13 +12,27 @@ module.exports = {
     description: 'Searches for what you inputed in Urban Dictionary',
     //when called execute this message
 	execute(message, args) {
+
+        if (!args.length) {
+            return message.channel.send('You need to give me something to search for. Example \`!ub retard\`.')
+        }
+        const query = querystring.stringify({ term: args.join(' ') });
+
+        const { list } = await fetch(`https://api.urbandictionary.com/v0/define?${query}`).then(response => response.json());
+
+        if (!list.length) {
+            return message.channel.send(`No results found for **${args.join(' ')}**.`);
+        }        
         //what the message does
-        const timeTaken = Date.now() - message.createdTimestamp;
         const pingEmbed = new Discord.MessageEmbed()
                 .setColor('#0099ff')
-                .setTitle('Ping')
+                .setTitle('Urban')
                 .setAuthor( 'Runner', runnerPicture )
-                .setDescription(`${timeTaken}ms`)
+                .setDescription(
+
+                    list[0].definition
+
+                )
                 .setTimestamp()
                 .setFooter(version)
         message.channel.send(pingEmbed);
